@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>localization/AppLanguage_en.qm</file>
+        <file>localization/AppLanguage_en.ts</file>
+        <file>localization/AppLanguage_ko.qm</file>
+        <file>localization/AppLanguage_ko.ts</file>
+        <file>localization/AppLanguage_vi.qm</file>
+        <file>localization/AppLanguage_vi.ts</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/components/StatusBar.qml</file>
+        <file>qml/screens/HomeScreen.qml</file>
+        <file>qml/screens/MusicScreen.qml</file>
+        <file>qml/screens/MapScreen.qml</file>
+        <file>qml/screens/VideoScreen.qml</file>
+        <file>qml/screens/TelephoneScreen.qml</file>
+        <file>qml/screens/RadioScreen.qml</file>
+        <file>qml/screens/SettingScreen.qml</file>
+        <file>qml/components/AppButton.qml</file>
+        <file>qml/screens/ClimateScreen.qml</file>
+        <file>qml/components/Header.qml</file>
+        <file>qml/components/SwitchButton.qml</file>
+        <file>qml/components/WidgetMap.qml</file>
+        <file>qml/components/WidgetClimate.qml</file>
+        <file>qml/components/WidgetMedia.qml</file>
+        <file>qml/components/KeyBoard.qml</file>
+    </qresource>
+</RCC>
