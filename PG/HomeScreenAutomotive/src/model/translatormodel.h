@@ -47,14 +47,14 @@ public:
         return ""; // notify signal to QML
     }
     Q_INVOKABLE void setLanguage(int lang);
-    Q_INVOKABLE bool checkModeLang(int lang);
+    Q_INVOKABLE bool checkModelLang(int lang);
 signals:
     void languageChanged();
 private:
     QTranslator*  m_translator;
-    bool enMode;
-    bool vnMode;
-    bool koMode;
+    bool m_enMode;
+    bool m_vnMode;
+    bool m_koMode;
 };
 
 #endif // TRANSLATORMODEL_H

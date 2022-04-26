@@ -63,7 +63,6 @@
         <file>Img/HomeScreen/btn_home_menu_video_f.png</file>
         <file>Img/HomeScreen/btn_home_menu_video_n.png</file>
         <file>Img/HomeScreen/btn_home_menu_video_p.png</file>
-        <file>Img/HomeScreen/cover_art.jpg</file>
         <file>Img/HomeScreen/img_clock_analog.png</file>
         <file>Img/HomeScreen/widget_climate_defog_n.png</file>
         <file>Img/HomeScreen/widget_climate_defog_s_b.png</file>
@@ -138,5 +137,6 @@
         <file>Img/Media/title.png</file>
         <file>Img/Media/USB Mussic.png</file>
         <file>Img/HomeScreen/bg_widget_p.png</file>
+        <file>Img/Media/cover_art.jpg</file>
     </qresource>
 </RCC>

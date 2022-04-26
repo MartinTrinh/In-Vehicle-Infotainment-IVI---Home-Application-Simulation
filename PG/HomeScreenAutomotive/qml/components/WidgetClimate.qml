@@ -1,4 +1,5 @@
-import QtQuick 2.15
+import QtQuick 2.0
+
 MouseArea {
     id: root
     property alias bgrOpacity: colorBgrId.opacity
@@ -11,14 +12,10 @@ MouseArea {
     property alias fanDriverUp: fanUpDriverIconId.source
     property alias fanPassDown: fanDownPassIconId.source
     property alias fanPassUp: fanUpPassIconId.source
-
-    implicitWidth: 370
-    implicitHeight: 320
     Rectangle {
         id:colorBgrId
-        anchors{
-            fill: parent
-        }
+        width: 370
+        height: 320
         opacity: 0.7
         color: "#111419"
     }
@@ -214,7 +211,7 @@ MouseArea {
         target: CLIMATE_CTRL
         onDataChanged: {
             //=======================set data for fan level============================
-           if (CLIMATE_CTRL.fan_level >= 1 && CLIMATE_CTRL.fan_level < 10) {
+            if (CLIMATE_CTRL.fan_level >= 1 && CLIMATE_CTRL.fan_level < 10) {
                 fanLevelIconId.source = "qrc:/Img/Climate/widget_climate_wind_level_0"+CLIMATE_CTRL.fan_level+".png"
             }else {
                 fanLevelIconId.source = "qrc:/Img/Climate/widget_climate_wind_level_10.png"
@@ -289,14 +286,11 @@ MouseArea {
 
         }
     }
-
     Image {
         id: idBackgroud
         source: ""
-        x:-4
-        y:-7
-        height:335
-        width :375
+        height:320
+        width :370
     }
     states: [
         State {
@@ -317,19 +311,8 @@ MouseArea {
             name: "Normal"
             PropertyChanges {
                 target: idBackgroud
-                source: "qrc:/Img/Climate/bg_climate_info_01.png"
+                source: ""
             }
         }
     ]
-//    onPressed: root.state = "Pressed"
-//    onReleased:{
-//        root.focus = true
-//        root.state = "Focus"
-//    }
-//    onFocusChanged: {
-//        if (root.focus == true )
-//            root.state = "Focus"
-//        else
-//            root.state = "Normal"
-//    }
 }

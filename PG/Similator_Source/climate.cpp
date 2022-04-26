@@ -46,12 +46,20 @@ double Climate::getTemp_passenger()
 
 void Climate::setData(double temp_driver, double temp_passenger, int fan_speed, int driver_wind_mode, int passenger_wind_mode, int auto_mode, int sync_mode)
 {
-    m_driver_temp = temp_driver;
-    m_passenger_temp = temp_passenger;
-    m_fan_level = fan_speed;
-    m_driver_wind_mode = driver_wind_mode;
-    m_passenger_wind_mode = passenger_wind_mode;
-    m_auto_mode = auto_mode;
     m_sync_mode = sync_mode;
+    if(m_sync_mode == 0)
+    {
+        m_driver_temp = 25;
+        m_passenger_temp = 25;
+        m_driver_wind_mode = 2;
+        m_passenger_wind_mode = 2;
+    }else {
+        m_driver_temp = temp_driver;
+        m_passenger_temp = temp_passenger;
+        m_driver_wind_mode = driver_wind_mode;
+        m_passenger_wind_mode = passenger_wind_mode;
+    }
+    m_auto_mode = auto_mode;
+    m_fan_level = fan_speed;    
     emit m_climateAdaptor->dataChanged();
 }

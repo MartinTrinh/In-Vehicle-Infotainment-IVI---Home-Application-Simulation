@@ -1,12 +1,7 @@
-import QtQuick 2.9
-import "../components"
-Item {
-    id: root
+import QtQuick 2.0
 
-    Component.onCompleted: {
-        //===============updte focus area=====================================================================
-        root.forceActiveFocus()
-    }
+Item {
+    anchors.fill: parent
     Keys.onPressed: {
         console.log("keys.onpress: " + event.key)
         switch(event.key)
@@ -26,19 +21,6 @@ Item {
         case Qt.Key_Escape:
             console.log("key_esc onpress")
             SCREEN_CTRL.popToRoot();
-            break
-        default:
-            console.log("key not support")
-            break
         }
-    }
-    Image{
-        anchors.fill: parent
-        source: "qrc:/Img/bg_full.png"
-    }
-    StatusBar{
-        id:headerAreaId
-        width: parent.width
-        height:  60
     }
 }

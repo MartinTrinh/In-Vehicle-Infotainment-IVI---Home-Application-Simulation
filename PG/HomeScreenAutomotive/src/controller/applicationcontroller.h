@@ -18,9 +18,8 @@ public:
     //initialize controller
     void initialize(QQmlContext *context);
     void loadDataFromLocal();
-
-
    Q_INVOKABLE void updateDataFromQML(int from, int to);
+
 signals:
    void modelChanged();
 private:

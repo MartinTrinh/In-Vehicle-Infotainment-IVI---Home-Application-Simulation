@@ -3,8 +3,6 @@ import QtGraphicalEffects 1.0
 
 MouseArea {
     id: root
-    implicitWidth: 370
-    implicitHeight: 320
     Rectangle {
         anchors{
             fill: parent
@@ -21,7 +19,7 @@ MouseArea {
             if (MEDIA_MODEL.rowCount() > 0 && MEDIA_MODEL.rowCount() >  PLAYLIST.currentIndex)
                 return MEDIA_MODEL.data(MEDIA_MODEL.index(PLAYLIST.currentIndex,0), 260)
             else
-                return "qrc:/Img/HomeScreen/cover_art.jpg"
+                return "qrc:/Img/Media/cover_art.jpg"
         }
     }
     FastBlur {
@@ -92,7 +90,6 @@ MouseArea {
     Image{
         id: imgDuration
         anchors.top: txtTitle.bottom
-        //anchors.horizontalCenter: parent.horizontalCenter
         anchors.left: parent.left
         anchors.leftMargin: 20
         width: parent.width - 40
@@ -102,7 +99,6 @@ MouseArea {
     Image{
         id: imgPosition
         anchors.top: txtTitle.bottom
-        //anchors.horizontalCenter: parent.horizontalCenter
         anchors.left: parent.left
         anchors.leftMargin: 20
         width: 0

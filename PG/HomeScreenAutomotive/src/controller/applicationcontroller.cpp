@@ -55,8 +55,7 @@ void ApplicationController::updateDataFromQML(int to, int from)
     LOG_INFO << "START";
     LOG_INFO << "from: " << from << " to: " << to;
     m_model.moveItem(from, to);
-
-
+    m_xmlReader.XmlUpdateData(m_model.getListApp());
     LOG_INFO << "END";
 }
 

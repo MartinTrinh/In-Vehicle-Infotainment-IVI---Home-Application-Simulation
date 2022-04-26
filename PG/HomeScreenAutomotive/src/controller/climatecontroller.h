@@ -12,6 +12,7 @@ private:
     explicit ClimateController(QObject *parent = nullptr);
 public:
     ~ClimateController();
+
     //singleton partern
     static ClimateController *getInstance();
 

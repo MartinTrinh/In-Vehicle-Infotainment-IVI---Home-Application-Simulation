@@ -39,7 +39,7 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     //QModelIndex index(int row, int column = 0, const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-    QModelIndex getIndex(int row) const;
+    //QModelIndex getIndex(int row) const;
 
     void addSong(Song &song);
 protected:

@@ -14,6 +14,7 @@
 #include <taglib/id3v2header.h>
 #include <taglib/attachedpictureframe.h>
 #include "mediamodel.h"
+#include <QMediaMetaData>
 
 QT_BEGIN_NAMESPACE
 class QAbstractItemView;
@@ -65,7 +66,7 @@ public:
     Q_INVOKABLE void setCurrenIndex(int index);
     Q_INVOKABLE bool checkPlayerState();
 
-    Q_INVOKABLE void setVolume(qint32 volume );
+   // Q_INVOKABLE void setVolume(qint32 volume );
     Q_INVOKABLE qint32 getVolume() const;
 
     Q_INVOKABLE void next();
@@ -75,11 +76,12 @@ public slots:
     void onMetaDataAvailableChanged(bool available);
     void onDurationChanged(qint64 duration);
     void onPositionChanged(qint64 position);
-#if __linux
-    void onMetaDataChanged(const QString &key, const QVariant &value);
-#elif defined(_WIN32) || defined(_WIN64)
-    void onMetaDataChanged();
-#endif
+
+//#if __linux
+//    void onMetaDataChanged( QString &key,  QVariant &value);
+//#elif defined(_WIN32) || defined(_WIN64)
+//    void onMetaDataChanged();
+//#endif
 
 signals:
     void duarationChanged();
@@ -97,7 +99,7 @@ private:
     qint32 m_initVolume;
     QString m_songName;
     QString m_singer;
-    qint32 m_volume;
+   // qint32 m_volume;
 
     static MediaController *m_instance;
     bool m_initialized;

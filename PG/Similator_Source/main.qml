@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
-import QtQuick.Controls 2.5
+import QtQuick 2.0
+import QtQuick.Window 2.1
+import QtQuick.Controls 2.1
 Window {
     visible: true
     width: 640
@@ -11,7 +11,7 @@ Window {
         climate.setData(driverTemp.realValue,passengerTemp.realValue,fanLevel.value,driver_wind_mode.currentIndex,passenger_wind_mode.currentIndex,auto_mode.currentIndex,sync_mode.currentIndex)
     }
 
-    Text {
+    Text{
         id: temp1
         x: 20
         y: 20

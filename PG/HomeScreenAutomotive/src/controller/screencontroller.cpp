@@ -7,6 +7,7 @@ ScreenController* ScreenController::m_instance = nullptr;
 ScreenController::ScreenController(QObject *parent)
     : QObject(parent)
     , m_initialized(false)
+    ,m_itemFocus("")
     , m_engine(nullptr)
 {
     LOG_INFO << "START";
@@ -105,6 +106,17 @@ void ScreenController::popToRoot()
     LOG_INFO << "END";
 }
 
+void ScreenController::setFocus(QString itemFocus)
+{
+    m_itemFocus = itemFocus;
+    emit focusChanged();
+}
+
+QString ScreenController::getItemFocus() const
+{
+    return m_itemFocus;
+}
+
 void ScreenController::reloadScreen()
 {
     LOG_INFO << "START";
@@ -112,7 +124,7 @@ void ScreenController::reloadScreen()
     {
         QString screenName = ScreenNameMap.value(m_screenStack.top());
         //ScreenNameMap.key();
-        LOG_INFO << screenName;
+        LOG_INFO << screenName << "FPT_LOG";
 
         // update to model
         m_model.setCurrentScreen(screenName);
@@ -120,8 +132,10 @@ void ScreenController::reloadScreen()
         // reload screen on qml
         if((m_engine != nullptr) && (m_engine->rootObjects().count() > 0))
         {
-            QMetaObject::invokeMethod(m_engine->rootObjects().at(0), "reloadScreen");
+            QMetaObject::invokeMethod(m_engine->rootObjects().at(0), "reloadScreen");//helloworld
+            //QMetaObject::invokeMethod(m_engine->rootObjects().at(0), "helloworld");
         }
     }
+
     LOG_INFO << "END";
 }

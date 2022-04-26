@@ -8,8 +8,6 @@ MouseArea {
      property alias heightImpl: root.implicitHeight
     preventStealing: true
     propagateComposedEvents: true
-    implicitWidth : 370
-    implicitHeight : 320
     Rectangle {
         anchors{
             fill: parent

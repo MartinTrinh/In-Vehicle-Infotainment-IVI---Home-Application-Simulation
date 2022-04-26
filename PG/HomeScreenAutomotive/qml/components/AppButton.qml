@@ -2,6 +2,8 @@ import QtQuick 2.0
 
 MouseArea {
     id: root
+    implicitWidth: 185
+    implicitHeight: 280
     property string icon :""
     property string title : ""
     Image {

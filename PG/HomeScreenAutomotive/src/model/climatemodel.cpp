@@ -19,7 +19,6 @@ double ClimateModel::GetDriverTemperature()
 {
     LOG_INFO << "m_climate->getTemp_driver(): "<< m_climate->getTemp_driver();
     return m_climate->getTemp_driver();
-
 }
 
 double ClimateModel::GetPassengerTemperature()

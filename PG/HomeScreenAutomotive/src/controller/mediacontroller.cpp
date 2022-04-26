@@ -27,14 +27,14 @@ MediaController::MediaController(QObject *parent) : QObject(parent)
     m_playlist = new QMediaPlaylist(this);
     m_playlistModel = new MediaModel(this);
     m_initialized = false;
-    m_volume = 20;
     open();
     initPlayListMediaPlayer();
-#if __linux
-    QObject::connect(m_player, SIGNAL(metaDataChanged(const QString&, const QVariant&)),  this, SLOT(onMetaDataChanged(const QString&, const QVariant&)));
-#elif defined(_WIN32) || defined(_WIN64)
-    QObject::connect(m_player, SIGNAL(metaDataChanged()),this, SLOT(onMetaDataChanged()));
-#endif
+    //#if __linux
+    //    QObject::connect(m_player, SIGNAL(metaDataChanged(QString&, QVariant&)),  this, SLOT(onMetaDataChanged(QString&,QVariant&)));
+    //#elif defined(_WIN32) || defined(_WIN64)
+    //    QObject::connect(m_player, SIGNAL(metaDataChanged()),this, SLOT(onMetaDataChanged()));
+    //#endif
+
     QObject::connect(m_player,&QMediaPlayer::metaDataAvailableChanged, this, &MediaController::onMetaDataAvailableChanged);
     QObject::connect(m_player, &QMediaPlayer::positionChanged, this , &MediaController::onPositionChanged);
     QObject::connect(m_player, &QMediaPlayer::durationChanged, this , &MediaController::onDurationChanged);
@@ -158,7 +158,7 @@ void MediaController::initPlayListMediaPlayer()
     if(!m_playlist->isEmpty())
     {
         m_player->setPlaylist(m_playlist);
-        m_player->setVolume(m_volume);
+        m_player->setVolume(20);
         m_playlist->setCurrentIndex(0);
     }else{
         LOG_INFO << "THE PLAYLIST IS EMPTY !!!!";
@@ -241,7 +241,13 @@ void MediaController::setPosition(qint64 position)
 
 void MediaController::setCurrenIndex(int index)
 {
-    m_player->playlist()->setCurrentIndex(index);
+    if(index > m_player->playlist()->mediaCount())
+    {
+        m_player->playlist()->setCurrentIndex(0);
+    }else
+    {
+        m_player->playlist()->setCurrentIndex(index);
+    }
 }
 
 bool MediaController::checkPlayerState()
@@ -256,16 +262,16 @@ bool MediaController::checkPlayerState()
     return false;
 }
 
-void MediaController::setVolume(qint32 volume)
-{
-    m_volume = volume;
-    m_player->setVolume(m_volume);
-    volumeChanged();
-}
+//void MediaController::setVolume(qint32 volume)
+//{
+//    m_volume = volume;
+//    m_player->setVolume(m_volume);
+//    emit volumeChanged();
+//}
 
 qint32 MediaController::getVolume() const
 {
-    return m_volume;
+    return m_player->volume();
 }
 
 void MediaController::next()
@@ -274,15 +280,15 @@ void MediaController::next()
     if(m_player->playlist()->currentIndex() == m_player->playlist()->mediaCount() - 1 ){
         m_player->playlist()->setCurrentIndex(0);
     }else{
-        if(m_player->playlist()->playbackMode() == QMediaPlaylist::CurrentItemInLoop){
-            m_player->playlist()->setCurrentIndex(m_player->playlist()->currentIndex() + 1);
-        }else if(m_player->playlist()->playbackMode() == QMediaPlaylist::Random)
-        {
-            srand(time(0));
-            m_player->playlist()->setCurrentIndex(rand() % m_player->playlist()->mediaCount());
-        }else {
-            m_player->playlist()->next();
-        }
+        //        if(m_player->playlist()->playbackMode() == QMediaPlaylist::CurrentItemInLoop){
+        //            m_player->playlist()->setCurrentIndex(m_player->playlist()->currentIndex() + 1);
+        //        }else if(m_player->playlist()->playbackMode() == QMediaPlaylist::Random)
+        //        {
+        //            srand(time(0));
+        //            m_player->playlist()->setCurrentIndex(rand() % m_player->playlist()->mediaCount());
+        //        }else {
+        m_player->playlist()->next();
+        //        }
     }
     LOG_INFO << "END";
 
@@ -359,7 +365,7 @@ void MediaController::onDurationChanged(qint64 duration)
 
 void MediaController::onPositionChanged(qint64 position)
 {
-    //LOG_INFO << position;
+    LOG_INFO << position;
     qint64 visualPosition = position / 1000;
     QTime currentTime((visualPosition / 3600) % 60, (visualPosition / 60) % 60,
                       visualPosition % 60, (visualPosition * 1000) % 1000);
@@ -369,16 +375,16 @@ void MediaController::onPositionChanged(qint64 position)
     emit currentTimeChanged();
 }
 
-#if __linux
-void MediaController::onMetaDataChanged(const QString &key, const QVariant &value)
-{
-    Q_UNUSED(key); // key of metaData
-    Q_UNUSED(value); // value of key
-    // using get data of media file( mp3, mp4,...)
-}
-#elif defined(_WIN32) || defined(_WIN64)
-void MediaController::onMetaDataChanged();
-{
-// using get data of media file( mp3, mp4,...)
-}
-#endif
+//#if __linux
+//void MediaController::onMetaDataChanged(QString &key,QVariant &value)
+//{
+//    Q_UNUSED(key); // key of metaData
+//    Q_UNUSED(value); // value of key
+//    // using get data of media file( mp3, mp4,...)
+//}
+//#elif defined(_WIN32) || defined(_WIN64)
+//void MediaController::onMetaDataChanged();
+//{
+//// using get data of media file( mp3, mp4,...)
+//}
+//#endif

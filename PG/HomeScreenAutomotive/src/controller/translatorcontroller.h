@@ -23,7 +23,6 @@ public:
 private:
     static TranslatorController *m_instance;
     bool m_initialized;
-
     TranslatorModel m_model;
 };
 

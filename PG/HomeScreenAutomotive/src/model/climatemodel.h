@@ -16,7 +16,6 @@ class ClimateModel : public QObject
     Q_PROPERTY(int sync_mode READ GetSyncMode NOTIFY dataChanged)
 public:
     explicit ClimateModel(QObject *parent = nullptr);
-
 private:
     double GetDriverTemperature();
     double GetPassengerTemperature();

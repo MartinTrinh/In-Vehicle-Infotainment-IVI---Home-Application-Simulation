@@ -15,7 +15,7 @@ public:
     explicit XmlReader(QObject *parent = nullptr);
     bool ReadXmlFile(QString filePath);    
     void ParserXml(ApplicationsModel &model);
-
+    void XmlUpdateData(QList<ApplicationItem> list);
 };
 
 #endif // XMLREADER_H

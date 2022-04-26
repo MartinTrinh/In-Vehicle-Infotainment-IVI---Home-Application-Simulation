@@ -1,4 +1,4 @@
-QT += quick multimedia dbus xml
+QT +=  quickcontrols2  multimedia dbus xml
 QT += location
 CONFIG += c++11
 
@@ -20,7 +20,7 @@ DEFINES += PROJECT_PATH=\"\\\"$${_PRO_FILE_PWD_}/\\\"\"
 INCLUDEPATH += \
     ./src \
     ./src/common \
-    ./src/controller \
+    ./src/controller\
     ./src/model
 
 HEADERS += \
@@ -67,6 +67,7 @@ TRANSLATIONS += \
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
+#/usr/lib/x86_64-linux-gnu/qt5/qml
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
@@ -80,8 +81,5 @@ LIBS += -ltag
 
 DISTFILES += \
     applications.xml \
-#    localization/AppLanguage_en.ts \
-#    localization/AppLanguage_ko.ts \
-#    localization/AppLanguage_vi.ts \
     src/Dbus/climate_data.xml
 

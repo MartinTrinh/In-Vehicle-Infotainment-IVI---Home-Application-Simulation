@@ -1,6 +1,6 @@
 import QtQuick 2.6
 import QtQml 2.3
-import QtQuick.Controls 2.4
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 Item{
     property bool  draweState: false

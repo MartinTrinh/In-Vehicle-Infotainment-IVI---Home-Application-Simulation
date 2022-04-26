@@ -2,9 +2,9 @@
 
 TranslatorModel::TranslatorModel(QObject *parent)
     : QObject(parent)
-    ,enMode(false)
-    ,vnMode(false)
-    ,koMode(false)
+    ,m_enMode(false)
+    ,m_vnMode(false)
+    ,m_koMode(false)
 {
     m_translator = new QTranslator();
     setLanguage(1);
@@ -21,56 +21,48 @@ void TranslatorModel::setLanguage(int lang)
     LOG_INFO << lang;
     switch (lang)
     {
-//    case TranslatorModel::EN :
-//        LOG_INFO <<   m_translator->load(":/localization/AppLanguage_en.qm");
-//        QGuiApplication::installTranslator(m_translator);
-//        enMode = true;
-//        vnMode = false;
-//        koMode = false;
-//        emit languageChanged();
-//        break;
     case TranslatorModel::VN :
         LOG_INFO <<  m_translator->load(":/localization/AppLanguage_vi.qm");
         QGuiApplication::installTranslator(m_translator);
-        enMode = false;
-        vnMode = true;
-        koMode = false;
+        m_enMode = false;
+        m_vnMode = true;
+        m_koMode = false;
         emit languageChanged();
         break;
     case TranslatorModel::KO:
         LOG_INFO <<  m_translator->load(":/localization/AppLanguage_ko.qm");
         QGuiApplication::installTranslator(m_translator);
         emit languageChanged();
-        enMode = false;
-        vnMode = false;
-        koMode = true;
+        m_enMode = false;
+        m_vnMode = false;
+        m_koMode = true;
         break;
     default:
         LOG_INFO <<   m_translator->load(":/localization/AppLanguage_en.qm");
         QGuiApplication::installTranslator(m_translator);
-        enMode = true;
-        vnMode = false;
-        koMode = false;
+        m_enMode = true;
+        m_vnMode = false;
+        m_koMode = false;
         emit languageChanged();
         break;
     }
     LOG_INFO << "END";
 }
 
-bool TranslatorModel::checkModeLang(int lang)
+bool TranslatorModel::checkModelLang(int lang)
 {
     LOG_INFO << "START";
     bool checkMode = false;
     switch (lang)
     {
     case TranslatorModel::VN:
-        checkMode =  vnMode;
+        checkMode =  m_vnMode;
         break;
     case TranslatorModel::KO:
-        checkMode =  koMode;
+        checkMode =  m_koMode;
         break;
     default:
-        checkMode = enMode;
+        checkMode = m_enMode;
         break;
     }
     LOG_INFO << "END";

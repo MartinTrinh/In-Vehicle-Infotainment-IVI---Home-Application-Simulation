@@ -17,5 +17,6 @@
         <file>qml/components/WidgetClimate.qml</file>
         <file>qml/components/WidgetMedia.qml</file>
         <file>qml/components/KeyBoard.qml</file>
+        <file>qml/components/InputKeyBoard.qml</file>
     </qresource>
 </RCC>

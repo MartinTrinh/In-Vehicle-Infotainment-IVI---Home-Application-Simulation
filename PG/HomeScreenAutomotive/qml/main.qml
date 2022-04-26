@@ -1,18 +1,25 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
 
-Window {
+Window{
     id: root
     title: "Home Application"
     visible: true
     width: 1140
-    height: 640
+    height: 645
+    FocusScope{
+        anchors.fill: parent
+    }
 
     property var layer_base: layer_base_1
 
     function reloadScreen() {
         layer_base.source = ""
         layer_base.source = SCREEN_MODEL.currentScreen
+    }
+    function helloworld()
+    {
+        console.log("ThangTV22 hello the world")
     }
 
     function switchLayerBase(from, to) {
@@ -38,7 +45,6 @@ Window {
     Loader {
         id: layer_base_2
         anchors.fill: parent
-
         onLoaded: {
             switchLayerBase(layer_base_1, layer_base_2);
         }

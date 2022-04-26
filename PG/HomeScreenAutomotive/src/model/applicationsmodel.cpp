@@ -67,6 +67,11 @@ void ApplicationsModel::moveItem(int from, int to)
     }
 }
 
+QList<ApplicationItem> ApplicationsModel::getListApp()
+{
+    return m_data;
+}
+
 QHash<int, QByteArray> ApplicationsModel::roleNames() const
 {
     QHash<int, QByteArray> roles;

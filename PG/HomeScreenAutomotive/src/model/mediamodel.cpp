@@ -68,6 +68,11 @@ int MediaModel::rowCount(const QModelIndex &parent) const
     return m_data.count();
 }
 
+//QModelIndex MediaModel::index(int row, int column, const QModelIndex &parent) const
+//{
+
+//}
+
 QVariant MediaModel::data(const QModelIndex &index, int role) const
 {
     LOG_INFO << "START";
@@ -101,10 +106,10 @@ QVariant MediaModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QModelIndex MediaModel::getIndex(int row) const
-{
-    return  index(row);
-}
+//QModelIndex MediaModel::getIndex(int row) const
+//{
+//    return  index(row);
+//}
 
 void MediaModel::addSong(Song &song)
 {
@@ -119,7 +124,9 @@ void MediaModel::addSong(Song &song)
 QHash<int, QByteArray> MediaModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
-    roles[TitleRole] = "TitleRole";
+    //roles is empty //
+
+    roles[TitleRole] = "TitleRole"; // user define
     roles[SingerRole] = "SingerRole";
     roles[SourceRole] = "SourceRole";
     roles[AlbumArtRole] = "AlbumArtRole";

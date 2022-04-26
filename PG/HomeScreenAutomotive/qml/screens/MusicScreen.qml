@@ -1,6 +1,8 @@
 import QtQuick 2.9
-import QtQuick.Controls 2.5
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
+import QtQml 2.1
+import QtQml.Models 2.1
 import "../components"
 
 Item {
@@ -8,14 +10,45 @@ Item {
     //==============variable initialaze application=========================================
     property bool initPlayer: true
     Component.onCompleted: {
-//        if(!MEDIA_CTRL.checkPlayerState())
-//        {
-            imageListSongDisplayId.currentIndex = PLAYLIST.currentIndex
-        //}
+        MEDIA_CTRL.volume = 100
+        //===============updte focus area==================================================
+        root.forceActiveFocus()
+        SCREEN_CTRL.setFocus("music")
+        //================update state control===============================================
+        if(MEDIA_CTRL.checkPlayerState())
+        {
+            playPauseId.source = "qrc:/Img/Media/play.png"
+        }
+        imageListSongDisplayId.currentIndex = PLAYLIST.currentIndex
         console.log("componet is completed")
     }
+    Keys.onPressed: {
+        console.log("keys.onpress: " + event.key)
+        switch(event.key)
+        {
+        case Qt.Key_1:
+            console.log("key_1 on press")
+            SCREEN_CTRL.pushScreen("qrc:/qml/screens/MapScreen.qml")
+            break
+        case Qt.Key_2:
+            console.log("key_2 onpress")
+            SCREEN_CTRL.pushScreen("qrc:/qml/screens/ClimateScreen.qml")
+            break
+        case Qt.Key_3:
+            console.log("key_3 onpress")
+            SCREEN_CTRL.pushScreen("qrc:/qml/screens/MusicScreen.qml")
+            break
+        case Qt.Key_Escape:
+            console.log("key_esc onpress")
+            SCREEN_CTRL.popToRoot();
+            break
+        default:
+            console.log("key not support")
+            break
+        }
+    }
     Connections{
-        target: PLAYER
+        target: PLAYLIST
         onCurrentIndexChanged: {
             console.trace()
             listSongBackgoundId.mediaPlaylistView.currentIndex = PLAYLIST.currentIndex
@@ -151,41 +184,39 @@ Item {
                 duration: 400
                 easing.type: Easing.InOutQuad
             }
-            Row{
-                id: hederDercoIconId
+            Text {
+                id: songCurrentInfoId
                 anchors.top: parent.top
-                width: parent.width
-                height: 50
-                Text {
-                    id: songCurrentInfoId
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                    text: listSongBackgoundId.mediaPlaylistView.currentItem.myData.TitleRole +
-                          "<br>" + listSongBackgoundId.mediaPlaylistView.currentItem.myData.SingerRole
-                    font.bold: true
-                    font.pointSize: 12
-                    color: "white"
-                    onTextChanged: {
-                        textChangeAni.target = songCurrentInfoId
-                        textChangeAni.restart()
-                    }
-                }
-                Image{
-                    id: iconMusicId
-                    anchors.right: countPLayListId.left
-                    anchors.rightMargin: 5
-                    source: "qrc:/Img/Media/music.png"
-                }
-                Text{
-                    id: countPLayListId
-                    anchors.right: parent.right
-                    anchors.rightMargin: 15
-                    text: APP_MODEL.rowCount()
-                    font.bold: true
-                    font.pointSize: 12
-                    color: "white"
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                text: listSongBackgoundId.mediaPlaylistView.currentItem.myData.TitleRole +
+                      "<br>" + listSongBackgoundId.mediaPlaylistView.currentItem.myData.SingerRole
+                font.bold: true
+                font.pointSize: 12
+                color: "white"
+                onTextChanged: {
+                    textChangeAni.target = songCurrentInfoId
+                    textChangeAni.restart()
                 }
             }
+            Image{
+                id: iconMusicId
+                anchors.top: parent.top
+                anchors.right: countPLayListId.left
+                anchors.rightMargin: 5
+                source: "qrc:/Img/Media/music.png"
+            }
+            Text{
+                id: countPLayListId
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.rightMargin: 15
+                text: APP_MODEL.rowCount()
+                font.bold: true
+                font.pointSize: 12
+                color: "white"
+            }
+
             //===================pathView======================================================//
             Component {
                 id: appDelegate
@@ -213,15 +244,15 @@ Item {
             }
             PathView {
                 id: imageListSongDisplayId
-                anchors.top: hederDercoIconId.bottom
+                anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: 200
-                anchors.topMargin: 50
+                anchors.topMargin: 70
                 anchors.margins: 20
                 preferredHighlightBegin: 0.5
                 preferredHighlightEnd: 0.5
-                height: parent.height * 3.5 / 5 - hederDercoIconId.height
+                height: parent.height * 3.5 / 5 - 15
                 width: parent.width *  3 /4
                 focus: true
                 model: MEDIA_MODEL
@@ -238,7 +269,7 @@ Item {
                     PathAttribute { name: "iconScale"; value: 0.5 }
                 }
                 onCurrentIndexChanged: {
-                    listSongBackgoundId.mediaPlaylistView.currentIndex = imageListSongDisplayId.currentIndex
+                    //listSongBackgoundId.mediaPlaylistView.currentIndex = imageListSongDisplayId.currentIndex
                     //MEDIA_CTRL.setCurrenIndex(imageListSongDisplayId.currentIndex)
                     console.log("PathView current index is: " + imageListSongDisplayId.currentIndex)
                 }
@@ -247,11 +278,12 @@ Item {
             RowLayout{
                 id: processId
                 anchors.top: imageListSongDisplayId.bottom
+                anchors.topMargin: -40
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: 20
                 width: parent.width
-                height:  parent.height * 0.75 / 5 - hederDercoIconId.height
+                height:  parent.height * 0.75 / 5 - 15
                 spacing: 2
                 Text {
                     id: currentTimeId
@@ -307,7 +339,7 @@ Item {
                         console.log("duaration changed")
                     }
                     onValueChanged: {
-                        if(PLAYER.state === PLAYER.PlayingState && progressBarId.value !== 0)
+                        if(MEDIA_CTRL.checkPlayerState() /*&& progressBarId.value !== 0*/)
                         {
                             playPauseId.source = "qrc:/Img/Media/play.png"
                         }
@@ -336,7 +368,7 @@ Item {
                 Layout.alignment: Qt.AlignVCenter
                 Layout.margins: 50
                 width: parent.width
-                height:  parent.height * 0.5 / 5 - hederDercoIconId.height
+                height:  100
                 SwitchButton{
                     id: buttonShuffleId
                     Layout.margins: 15
@@ -381,6 +413,7 @@ Item {
                     Layout.preferredWidth: parent.width / 16
                     Layout.preferredHeight: parent.height * 1.2/ 2
                     source: "qrc:/Img/Media/pause.png"
+		    //source: MEDIA_CTRL.checkPlayerState() ? "qrc:/Img/Media/play.png" : "qrc:/Img/Media/pause.png"
                     MouseArea{
                         anchors.fill: parent
                         onClicked: {

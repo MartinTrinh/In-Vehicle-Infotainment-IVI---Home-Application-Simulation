@@ -22,8 +22,7 @@ public:
     enum Roles {
         TitleRole = Qt::UserRole + 1,
         UrlRole,
-        IconPathRole,
-        ID
+        IconPathRole
     };
     explicit ApplicationsModel(QObject *parent = nullptr);
 
@@ -31,6 +30,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     void addApplication(ApplicationItem &item);
     void moveItem(int from, int to);
+    QList<ApplicationItem> getListApp();
 protected:
     QHash<int, QByteArray> roleNames() const override;
 
